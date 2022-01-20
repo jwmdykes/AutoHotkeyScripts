@@ -857,10 +857,14 @@ CapsLock & v::
     ShowFirefoxOn(Monitor2)
 Return
 
-;CapsLock + c - Activate the chrome window on the first monitor
+; ;CapsLock + c - Activate the chrome window on the first monitor
+; CapsLock & c::
+;     ShowFirefoxOn(Monitor1)
+; Return
+
+;CapsLock + c - Run python program to add to anki deck
 CapsLock & c::
-    ShowFirefoxOn(Monitor1)
-Return
+    Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe c:/code/add-to-anki/add_to_anki.pyw
 
 CapsLock & j::
     If (GetKeyState("Ctrl"))
