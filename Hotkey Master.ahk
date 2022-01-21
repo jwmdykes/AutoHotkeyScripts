@@ -140,124 +140,6 @@ Return
 ; Hotkey Helper functions
 ;================================================================================================
 
-ShowChromeOn(Monitor)
-{
-    AppModelUserID := "Chrome"
-
-    SetTitleMatchMode, 2
-    WinGet, Windows, List, %AppModelUserID%
-
-    Loop, %Windows%
-    {
-        this_windowHwnd := Windows%A_Index%
-        currentMonitorHwnd := MDMF_FromHWND(this_windowHwnd)
-        ; MsgBox "Loop Number" %A_Index%. MonitorHWND: %currentMonitorHwnd%. Target: %Monitor1%
-        If (currentMonitorHwnd = Monitor)
-        {
-            ; MsgBox Found a window. %A_Index%
-            If WinActive("ahk_id" this_windowHwnd)
-            {
-                ;MsgBox Already active. Minimizing
-                WinMinimize, ahk_id %this_windowHwnd%
-                Return
-            }
-            else
-            {
-                ;MsgBox "Inactive window. Activating"
-                WinActivateBottom ahk_id %this_windowHwnd%
-                Return
-            }        
-        }
-    }
-    ; MsgBox Found nothing
-    Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
-    If ErrorLevel
-    {
-        Msgbox, File %AppModelUserID% Not Found
-        Return
-    }
-    Return
-}
-
-ShowFirefoxOn(Monitor)
-{
-    AppModelUserID := "308046B0AF4A39CB"
-    Title := "Firefox"
-
-    SetTitleMatchMode, 2
-    WinGet, Windows, List, %Title%
-
-    Loop, %Windows%
-    {
-        this_windowHwnd := Windows%A_Index%
-        currentMonitorHwnd := MDMF_FromHWND(this_windowHwnd)
-        ; MsgBox "Loop Number" %A_Index%. MonitorHWND: %currentMonitorHwnd%. Target: %Monitor1%
-        If (currentMonitorHwnd = Monitor)
-        {
-            ; MsgBox Found a window. %A_Index%
-            If WinActive("ahk_id" this_windowHwnd)
-            {
-                ;MsgBox Already active. Minimizing
-                WinMinimize, ahk_id %this_windowHwnd%
-                Return
-            }
-            else
-            {
-                ;MsgBox "Inactive window. Activating"
-                WinActivateBottom ahk_id %this_windowHwnd%
-                Return
-            }        
-        }
-    }
-    ; MsgBox Found nothing
-    Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
-    If ErrorLevel
-    {
-        Msgbox, File %AppModelUserID% Not Found
-        Return
-    }
-    Return
-}
-
-FocusChromeOn(Monitor)
-{
-    AppModelUserID := "Chrome"
-
-    SetTitleMatchMode, 2
-    WinGet, Windows, List, %AppModelUserID%
-
-    Loop, %Windows%
-    {
-        this_windowHwnd := Windows%A_Index%
-        currentMonitorHwnd := MDMF_FromHWND(this_windowHwnd)
-        ; MsgBox "Loop Number" %A_Index%. MonitorHWND: %currentMonitorHwnd%. Target: %Monitor1%
-        If (currentMonitorHwnd = Monitor)
-        {
-            ; MsgBox Found a window. %A_Index%
-            If WinActive("ahk_id" this_windowHwnd)
-            {
-                ;MsgBox Already active. Minimizing
-                ;WinMinimize, ahk_id %this_windowHwnd%
-                Return
-            }
-            else
-            {
-                ;MsgBox "Inactive window. Activating"
-                WinActivateBottom ahk_id %this_windowHwnd%
-                Return
-            }        
-        }
-    }
-    ; MsgBox Found nothing
-    Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
-    If ErrorLevel
-    {
-        Msgbox, File %AppModelUserID% Not Found
-        Return
-    }
-    Return
-}
-
 OpenAppsFolder()
 {
     Run, shell:Appsfolder
@@ -582,84 +464,9 @@ SetMonitor2()
     Monitor2 = %activeMonitorHwnd%
 }
 
-; OpenShowKoreanDict()
-; {
-;     SetTitleMatchMode, 2
-; 	; AppTitle := "국립국어원 표준국어대사전"
-;     AppTitle := "네이버 국어사전"
-;     ;AppModelUserID := "Chrome._crx_doibdgamfnkjadnjlenpjnbbgceiaaai"
-;     AppModelUserID := "Chrome._crx_fhgbkobfgpdideoaghpgjhanicidmpfo"
-
-;     IfWinExist, %AppTitle%
-;     {    
-;         ;MsgBox found
-; 		IfWinActive
-; 		{
-; 			; WinMinimize
-; 			Return false
-; 		}
-; 		else
-; 		{
-; 			WinActivate
-; 			Return true
-; 		}
-; 	}
-;     else
-;     {
-;         ; MsgBox %AppTitle% Not found
-;         Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
-;         If ErrorLevel
-;         {
-;             ; Msgbox, File %AppModelUserID% Not Found
-;             Return "opened"
-;         }
-;     }
-; 	return false
-; }
-
 OpenShowKoreanDict()
 {
     OpenOrShowAppBasedOnAppModelUserID("네이버 국어사전$", "Chrome._crx_fhgbkobfgpdideoaghpgjhanicidmpfo","Regex")
-    Return
-}
-
-
-OpenShowNaverDict()
-{
-    SetTitleMatchMode, 2
-	AppTitle := "Lingoes"
-
-    IfWinExist, %AppTitle%
-    {    
-        ;MsgBox found
-		IfWinActive
-		{
-			; WinMinimize
-			Return false
-		}
-		else
-		{
-			WinActivate
-			Return true
-		}
-	
-	}
-    ; If (OpenOrShowAppBasedOnAppModelUserID("네이버 영어사전", "Chrome._crx_ojjhnnaaabjpfgdblnfhpjkjof") = "maximized")
-    ; If (OpenOrShowAppBasedOnAppModelUserID("StarDict", "Chrome._crx_ojjhnnaaabjpfgdblnfhpjkjof") = "maximized")
-    ; {
-    ;     ; Sleep 10
-    ;     ; Send a
-    ;     ; Sleep 10
-    ;     ; Send ^a
-    ;     ; Sleep 10
-    ;     ; Send {BackSpace}
-    ; }
-    ; Return
-}
-
-OpenShowYoutube()
-{
-    OpenOrShowAppBasedOnAppModelUserID("YouTube$", "Chrome._crx_agimnkijcamfeangaknmldooml","Regex")
     Return
 }
 
@@ -719,24 +526,17 @@ CapsLock & x::
     OpenOrShowAppBasedOnAppModelUserID("Note", "{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\ulazy1\NoteTaker\NoteTaker.exe")
 Return
 
-/*
-; CapsLock + c  - Open||Show "Chrome"
-CapsLock & c:: 
-    OpenOrShowAppBasedOnAppModelUserID("Chrome", "Chrome")
-Return
-*/
-
 ; CapsLock + g  - Open||Show "Gmail as Chrome App"
 CapsLock & g:: 
     OpenOrShowAppBasedOnAppModelUserID("Gmail", "Chrome._crx_kmhopmchchjodmpfaaphdclmlj")
 Return
 
-; CapsLock & f - Open||Show 
-CapsLock & f:: OpenShowKoreanDict()
+CapsLock & f::
+    OpenOrShowAppBasedOnAppModelUserID("국립국어원 표준국어대사전", "Chrome._crx_lmfljdbcmdlfkpoeldhhajnghm")
 Return
 
-; CapsLock+d - Open||Show "Naver Dictionary"
-CapsLock & d:: OpenShowNaverDict()
+CapsLock & d::
+    OpenOrShowAppBasedOnAppModelUserID("한국어기초사전", "Chrome._crx_cffcckajjofbfnflmfaabejcoa")
 Return
 
 ; CapsLock+s - Open||Show "Youtube Music" or 
@@ -868,7 +668,7 @@ CapsLock & c::
     MouseGetPos, xpos, ypos
     ; MsgBox, The cursor is at X%xpos% Y%ypos%.
     Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe c:/code/add-to-anki/main.pyw %xpos% %ypos%
-    sleep, 200
+    sleep, 1000
     if WinExist("Input a Korean English pair")
         WinActivate
 
