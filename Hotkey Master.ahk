@@ -97,8 +97,6 @@ CapsLock::
                 Case "sti": OpenOrShowAppBasedOnAppModelUserID("Sticky Notes", "Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe!App")
                 ; Open or show gmail
                 Case "gma": OpenOrShowAppBasedOnAppModelUserID("Gmail", "Chrome._crx_kmhopmchchjodmpfaaphdclmlj")
-                ; Open or show dictionary
-                Case "dic": OpenShowNaverDict()
                 ; Open or show youtube
                 Case "you": OpenOrShowAppBasedOnAppModelUserID("YouTube", "Chrome._crx_aimnkijcamfeangaknmldooml")
                 ; Open or show discord chat
@@ -464,45 +462,9 @@ SetMonitor2()
     Monitor2 = %activeMonitorHwnd%
 }
 
-OpenShowKoreanDict()
-{
-    OpenOrShowAppBasedOnAppModelUserID("네이버 국어사전$", "Chrome._crx_fhgbkobfgpdideoaghpgjhanicidmpfo","Regex")
-    Return
-}
-
 ;================================================================================================
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
 ;================================================================================================
-
-CapsLock & 1::
-    FocusChromeOn(Monitor2)
-    Sleep 25 
-    Send ^l
-    Sleep 25
-    Send google.com
-    Sleep 25
-    Send {Tab}
-Return
-
-CapsLock & 2::
-    FocusChromeOn(Monitor2)
-    Sleep 25   
-    Send ^l
-    Sleep 25
-    Send naver.com
-    Sleep 25
-    Send {Tab}
-Return
-
-CapsLock & 3::
-    FocusChromeOn(Monitor2)
-    Sleep 25   
-    Send ^l
-    Sleep 25
-    Send translate.google.com
-    Sleep 25
-    Send {Tab}
-Return
 
 CapsLock & z::
     OpenOrShowAppBasedOnAppModelUserID("Ableton Live 11 Trial", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
@@ -552,10 +514,6 @@ Return
 
 CapsLock & n::
     OpenOrShowAppBasedOnAppModelUserID("Netflix", "Chrome._crx_eppojlglocmnohnlnionkobfln")
-Return
-
-; CapsLock+y - Open||Show "Youtube"
-CapsLock & y:: OpenShowYoutube()
 Return
 
 ; CapsLock+a - Open||Show "Discord chat"
@@ -652,22 +610,13 @@ CapsLock & Tab::
         }
 Return
 
-; CapsLock + v - Activate the chrome window on the second monitor
-CapsLock & v::
-    ShowFirefoxOn(Monitor2)
-Return
-
-; ;CapsLock + c - Activate the chrome window on the first monitor
-; CapsLock & c::
-;     ShowFirefoxOn(Monitor1)
-; Return
-
 ;CapsLock + c - Run python program to add to anki deck
 CapsLock & c::
     CoordMode, Mouse, Screen    
     MouseGetPos, xpos, ypos
     ; MsgBox, The cursor is at X%xpos% Y%ypos%.
-    Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe c:/code/add-to-anki/main.pyw %xpos% %ypos%
+    SetWorkingDir, C:/code/add-to-anki/
+    Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe main.pyw %xpos% %ypos%
     sleep, 1000
     if WinExist("Input a Korean English pair")
         WinActivate
