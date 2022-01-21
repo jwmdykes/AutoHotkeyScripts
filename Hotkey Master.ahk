@@ -8,8 +8,8 @@ scripts_path := "C:\Users\98joh\OneDrive\Documents\AutoHotkeyScripts"
 #include C:\Users\98joh\OneDrive\Documents\AutoHotkeyScripts\ShowApps.ahk
 
 ; Hwnd of each of the monitors
-Monitor1 := 852919
-Monitor2 := 132295
+Monitor1 := 65602
+Monitor2 := 131073
 
 ================================================================================================
 ;  CapsLock processing.  Must double tap CapsLock to toggle CapsLock mode on or off.
@@ -864,7 +864,13 @@ Return
 
 ;CapsLock + c - Run python program to add to anki deck
 CapsLock & c::
-    Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe c:/code/add-to-anki/add_to_anki.pyw
+    CoordMode, Mouse, Screen    
+    MouseGetPos, xpos, ypos
+    ; MsgBox, The cursor is at X%xpos% Y%ypos%.
+    Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe c:/code/add-to-anki/main.pyw %xpos% %ypos%
+    sleep, 200
+    if WinExist("Input a Korean English pair")
+        WinActivate
 
 CapsLock & j::
     If (GetKeyState("Ctrl"))
