@@ -325,3 +325,78 @@ SetMonitor2()
     activeMonitorHwnd := MDMF_FromHWND(activeWindowHwnd)
     Monitor2 = %activeMonitorHwnd%
 }
+
+OpenDiscordCall()
+{
+        If (Not OpenOrShowAppBasedOnAppModelUserID("러비더비", "com.squirrel.Discord.Discord", 3))
+    {
+        ; MsgBox notfound
+        AppTitle := "Discord"
+        SetTitleMatchMode, 2
+
+        IfWinExist, %AppTitle%
+        {    
+
+            IfWinActive
+            {
+                ;MsgBox Found %AppTitle% as active window
+                goto OpenCallWindow
+            }
+            else
+            {
+                ; MsgBox Found %AppTitle% as inactive window
+                WinActivateBottom %AppTitle%
+                goto OpenCallWindow
+            }
+            OpenCallWindow:
+            WinGetPos, X, Y, W, H, Discord
+            CoordMode, Click, Client
+            x:= W - 200
+            y:= 200
+            Click %x% %y%
+            Click %x% %y%
+
+            Sleep 10
+            x:=W-70
+            y:= H-45
+            Click %x% %y%
+            Sleep 10
+            Send {Esc}
+            ;MsgBox w %W% h %H%, x %x% y %y%
+        }
+        else
+        {
+            ; MsgBox %AppTitle% Not found
+            Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
+            If ErrorLevel
+            {
+                ; Msgbox, File %AppModelUserID% Not Found
+                Return
+            }
+        }
+    }
+}
+
+ActivateNextWindowOfCurrentApp()
+{
+        WinGet, ActiveProcess, ProcessName, A
+    WinGet, OpenWindowsAmount, Count, ahk_exe %ActiveProcess%
+
+    If OpenWindowsAmount = 1  ; If only one Window exist, do nothing
+        Return
+
+    Else
+        {
+            WinGetTitle, FullTitle, A
+            AppTitle := ExtractAppTitle(FullTitle)
+
+            SetTitleMatchMode, 2
+            WinGet, WindowsWithSameTitleList, List, %AppTitle%
+
+            If WindowsWithSameTitleList > 1 ; If several Window of same type (title checking) exist
+            {
+                WinActivate, % "ahk_id " WindowsWithSameTitleList%WindowsWithSameTitleList%	; Activate next Window
+            }
+        }
+
+}
