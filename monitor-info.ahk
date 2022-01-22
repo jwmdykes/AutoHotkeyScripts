@@ -1,10 +1,21 @@
 ;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+; Get position of monitor even if it's minimized
+WinGetNormalPos(hwnd, ByRef x, ByRef y, ByRef w="", ByRef h="")
+{
+    VarSetCapacity(wp, 44), NumPut(44, wp)
+    DllCall("GetWindowPlacement", "uint", hwnd, "uint", &wp)
+    x := NumGet(wp, 28, "int")
+    y := NumGet(wp, 32, "int")
+    w := NumGet(wp, 36, "int") - x
+    h := NumGet(wp, 40, "int") - y
+}
+
 ; Get monitor idx of window given by buffer, or active window if buffer not given
-GetMonitor(hwnd := 0, buffer := 600) {
-    MsgBox, got hwnd: %hwnd%
+GetMonitor(hwnd := 0, buffer := 600, debug := false) {
+   ;  MsgBox, got hwnd: %hwnd%
     if (hwnd) {
-        WinGetPos, winX, winY, winW, winH, ahk_id %hwnd%
+        WinGetNormalPos(hwnd, winX, winY, winW, winH)
     }
     else {
         WinGetActiveStats, winTitle, winW, winH, winX, winY
@@ -13,15 +24,22 @@ GetMonitor(hwnd := 0, buffer := 600) {
     SysGet, idxPrimary, MonitorPrimary
     Loop %numDisplays%
     {
-        ; MsgBox, %A_index%
-        SysGet, mon, MonitorWorkArea, %A_index%
-        ; TrayTip, %n%, Left: %monLeft% Right: %monRight%. Window left: %winX%
-
-        if (winX + buffer >= monLeft and winX + buffer <= monRight)
-            return %A_index%
+      SysGet, mon, MonitorWorkArea, %A_index%
+      ; TrayTip, %n%, Left: %monLeft% Right: %monRight%. Window left: %winX%
+      ; MsgBox, Monitor has left edge: %winX%
+      if (winX + buffer >= monLeft and winX + buffer <= monRight)
+      {
+         if (debug) {
+            MsgBox, Window on monitor: %A_index%
+         }
+         return %A_index%
+      }
     }
     ; Otherwise return primary monitor
-    return idxPrimary
+    if (debug) {
+      MsgBox, Couldn't find a window, returning -1
+    }
+    return -1
 }
 
 ;Credits to "just me" for the following code:
