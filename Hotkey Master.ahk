@@ -3,21 +3,52 @@
 #SingleInstance FORCE       ; Skip invocation dialog box and silently replace previously executing instance of this script.
 SendMode Input              ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+n := "Hotkey Master" ; name of script
 
 scripts_path := "C:\code\AutoHotkeyScripts"
 #include C:\code\AutoHotkeyScripts\ShowApps.ahk
 #include C:\code\AutoHotkeyScripts\specific-helpers.ahk
-#include C:\code\AutoHotkeyScripts\monitor-info.ahk
 #include C:\code\AutoHotkeyScripts\arrow-keys.ahk
 
-; Hwnd of each of the monitors
-Monitor1 := 65602
-Monitor2 := 131073
 
+; Reload script
+^!r:: Reload
+;Make capslock always off
+CapsLock::return
+
+; Test hotkey
+CapsLock & `::
+    MsgBox, No test hotkey available
+    ; OpenAppsFolder()
+Return
+
+; CapsLock & 1::
+;     GetMonitor(,,debug := true)
+; Return
 
 ;================================================================================================
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
 ;================================================================================================
+
+; Focus on firefox on first monitor
+CapsLock & v::
+    FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
+Return
+
+CapsLock & c::
+    FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 1, MinimizeWindow := False)
+Return
+
+; ;CapsLock + c - Run python program to add to anki deck
+; CapsLock & c::
+;     CoordMode, Mouse, Screen    
+;     MouseGetPos, xpos, ypos
+;     ; MsgBox, The cursor is at X%xpos% Y%ypos%.
+;     SetWorkingDir, C:/code/add-to-anki/
+;     Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe main.pyw %xpos% %ypos%
+;     sleep, 1000
+;     if WinExist("Input a Korean English pair")
+;         WinActivate
 
 ;open ankiweb app
 CapsLock & r::
@@ -26,7 +57,7 @@ Return
 
 ;open terminal
 CapsLock & t::
-    OpenOrShowAppBasedOnAppModelUserIDAndExe("WindowsTerminal.exe", "Microsoft.WindowsTerminal_8wekyb3d8bbwe!App")
+    OpenOrShowAppBasedOnAppModelUserIDAndExeNoMinimize("WindowsTerminal.exe", "Microsoft.WindowsTerminal_8wekyb3d8bbwe!App")
 Return
 
 ;open settings
@@ -40,11 +71,11 @@ CapsLock & g::
 Return
 ;Open korean dictionary
 CapsLock & f::
-    OpenOrShowAppBasedOnAppModelUserID("국립국어원 표준국어대사전", "Chrome._crx_lmfljdbcmdlfkpoeldhhajnghm")
+    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("국립국어원 표준국어대사전", "Chrome._crx_lmfljdbcmdlfkpoeldhhajnghm")
 Return
 ; Open korean dictionary
 CapsLock & d::
-    OpenOrShowAppBasedOnAppModelUserID("한국어기초사전", "Chrome._crx_cffcckajjofbfnflmfaabejcoa")
+    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("한국어기초사전", "Chrome._crx_cffcckajjofbfnflmfaabejcoa")
 Return
 
 ; CapsLock+s - Open||Show "Youtube Music" or 
@@ -69,7 +100,7 @@ Return
 
 ; CapsLock+w - Open||Show "VScode"
 CapsLock & w:: 
-    OpenOrShowAppBasedOnAppModelUserID("Visual Studio Code", "Microsoft.VisualStudioCode")
+    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("Visual Studio Code", "Microsoft.VisualStudioCode")
 Return
 
 ; CapsLock+e - Open||Show "Files v2 file explorer"
@@ -81,17 +112,6 @@ Return
 CapsLock & Tab::
     ActivateNextWindowOfCurrentApp()
 Return
-
-;CapsLock + c - Run python program to add to anki deck
-CapsLock & c::
-    CoordMode, Mouse, Screen    
-    MouseGetPos, xpos, ypos
-    ; MsgBox, The cursor is at X%xpos% Y%ypos%.
-    SetWorkingDir, C:/code/add-to-anki/
-    Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe main.pyw %xpos% %ypos%
-    sleep, 1000
-    if WinExist("Input a Korean English pair")
-        WinActivate
 
 CapsLock & j::
     Left()

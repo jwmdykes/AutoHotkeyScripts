@@ -34,21 +34,27 @@ scripts_path := "C:\code\AutoHotkeyScripts"
 #WinActivateForce ; Prevent task bar buttons from flashing when different windows are activated quickly one after the other.
 
 ; Focus app on monitor `TargetMonitor`, and integer.
-; Accepts an AppModelUserID to find the windows to loop over
+; Accepts title of app to find the windows to loop over
 ; Accepts a boolean MinimizeWindow to determine if opening the currently focused window should minimize it.
-FocusAppOnMonitor(AppModelUserID, TargetMonitor, MinimizeWindow) {
+FocusAppOnMonitor(Name, AppModelUserID, TargetMonitor, MinimizeWindow) {
     SetTitleMatchMode, 2
-    WinGet, Windows, List, %AppModelUserID%
-
-    Loop, %Windows%
+    WinGet, Windows, List, %Name%
+	; MsgBox, Got windows: %Windows%
+	Loop, %Windows%
     {
         this_windowHwnd := Windows%A_Index%
-        currentMonitor := GetMonitor(this_windowHwnd)
-        ; MsgBox "Loop Number" %A_Index%. MonitorHWND: %currentMonitorHwnd%. Target: %Monitor2%
-        If (currentMonitorHwnd == TargetMonitor)
+	    WinGetTitle, title, ahk_id %this_windowHwnd%
+
+		currentMonitor := GetMonitor(hwnd := this_windowHwnd)
+		
+		; MsgBox, monitor of window: %currentMonitor%
+		; MsgBox, TargetMonitor: %TargetMonitor%
+
+        If (currentMonitor == TargetMonitor)
         {
+			; MsgBox, Found window on monitor %TargetMonitor%: %title%. Monitor was: %currentMonitor%, target was: %TargetMonitor%
             ; MsgBox Found a window. %A_Index%
-            If (WinActive("ahk_id" this_windowHwnd) and MinimizeWindow)
+            If (WinActive(ahk_id this_windowHwnd) and %MinimizeWindow%)
             {
 				;MsgBox Already active. Minimizing
 				WinMinimize, ahk_id %this_windowHwnd%
@@ -56,13 +62,17 @@ FocusAppOnMonitor(AppModelUserID, TargetMonitor, MinimizeWindow) {
             }
             else
             {
-                ;MsgBox "Inactive window. Activating"
-                WinActivateBottom ahk_id %this_windowHwnd%
+                ; MsgBox, Inactive window. Activating window with hwnd: %this_windowHwnd%
+				IfWinExist ahk_id %this_windowHwnd%
+				{
+					WinActivate
+				}
                 Return
             }        
         }
     }
-    ; MsgBox Found nothing
+    ; MsgBox Found nothing on monitor: %TargetMonitor%
+	; MsgBox, Opening appmodelid: %AppModelUserID%
     Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
     If ErrorLevel
     {
