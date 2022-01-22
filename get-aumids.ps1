@@ -1,0 +1,1 @@
+Get-StartApps > aumids.txt
