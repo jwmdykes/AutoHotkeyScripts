@@ -1,5 +1,5 @@
 ;================================================================================================
-; Hotkey Helper functions
+; Hotkey Helper functions NOT CURRENTLY USED
 ;================================================================================================
 
 OpenAppsFolder()
@@ -158,41 +158,6 @@ TabHotkey() {
                 WinActivate, % "ahk_id " WindowsWithSameTitleList%WindowsWithSameTitleList%	; Activate next Window
             }
         }
-    Return
-}
-
-FocusAppOnMonitor(AppModelUserID, TargetMonitorHWND) {
-    SetTitleMatchMode, 2
-    WinGet, Windows, List, %AppModelUserID%
-
-    Loop, %Windows%
-    {
-        this_windowHwnd := Windows%A_Index%
-        currentMonitorHwnd := MDMF_FromHWND(this_windowHwnd)
-        ; MsgBox "Loop Number" %A_Index%. MonitorHWND: %currentMonitorHwnd%. Target: %Monitor2%
-        If (currentMonitorHwnd = TargetMonitorHWND)
-        {
-            ; MsgBox Found a window. %A_Index%
-            If WinActive("ahk_id" this_windowHwnd)
-            {
-                ;MsgBox Already active. Minimizing
-                WinMinimize, ahk_id %this_windowHwnd%
-                Return
-            }
-            else
-            {
-                ;MsgBox "Inactive window. Activating"
-                WinActivateBottom ahk_id %this_windowHwnd%
-                Return
-            }        
-        }
-    }
-    ; MsgBox Found nothing
-    Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
-    If ErrorLevel
-    {
-        Msgbox, File %AppModelUserID% Not Found
-    }
     Return
 }
 
