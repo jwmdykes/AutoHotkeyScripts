@@ -6,9 +6,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 n := "Hotkey Master" ; name of script
 
 scripts_path := "C:\code\AutoHotkeyScripts"
-#include C:\code\AutoHotkeyScripts\ShowApps.ahk
-#include C:\code\AutoHotkeyScripts\specific-helpers.ahk
-#include C:\code\AutoHotkeyScripts\arrow-keys.ahk
+#include ShowApps.ahk
+#include specific-helpers.ahk
+#include arrow-keys.ahk
 
 
 ; Reload script

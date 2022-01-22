@@ -4,9 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 scripts_path := "C:\code\AutoHotkeyScripts"
-#include C:\code\AutoHotkeyScripts\monitor-info.ahk
-
-
+#include monitor-info.ahk
 
 ; This AutoHotkey script is to Open, Restore or Minimize the desires Apps using the configured shortcuts key (hotkeys) you want.
 ; There are three functions you can use for this: 
@@ -21,7 +19,6 @@ scripts_path := "C:\code\AutoHotkeyScripts"
 
 ; Additionally, pressing Alt + ` (key above Tab key) you can switch between open Windows of the same "type" and same App (.exe)
 ; The "type" checking is based on the App's Title convention that stipulates that the App name should be at the end of the Window title (Eg: New Document - Word )
-
 
 
 /* ;
