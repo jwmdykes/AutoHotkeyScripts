@@ -29,8 +29,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #WinActivateForce ; Prevent task bar buttons from flashing when different windows are activated quickly one after the other.
 
-
-
 ; AppAddress: The address to the .exe (Eg: "C:\Windows\System32\SnippingTool.exe")
 
 OpenOrShowAppBasedOnExeName(AppAddress)

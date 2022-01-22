@@ -4,8 +4,8 @@
 SendMode Input              ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-scripts_path := "C:\Users\98joh\OneDrive\Documents\AutoHotkeyScripts"
-#include C:\Users\98joh\OneDrive\Documents\AutoHotkeyScripts\ShowApps.ahk
+scripts_path := "C:\code\AutoHotkeyScripts"
+#include C:\code\AutoHotkeyScripts\ShowApps.ahk
 
 ; Hwnd of each of the monitors
 Monitor1 := 65602
@@ -466,8 +466,8 @@ SetMonitor2()
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
 ;================================================================================================
 
-CapsLock & z::
-    OpenOrShowAppBasedOnAppModelUserID("Ableton Live 11 Trial", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
+CapsLock & r::
+    OpenOrShowAppBasedOnAppModelUserID("Anki", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
     ; OpenOrShowAppBasedOnAppModelUserID("Pianoteq", "{6D809377-6AF0-444B-8957-A3773F02200E}\Modartt\Pianoteq 7\Pianoteq 7.exe")
 Return
 
@@ -507,7 +507,7 @@ CapsLock & s::
 Return
 
 ; CapsLock+r - Open||Show "Anki web" or 
-CapsLock & r::
+CapsLock & z::
     OpenOrShowAppBasedOnAppModelUserID("AnkiWeb", "Chrome._crx_kdaapfkcghpblmgcpkkbbnodnc")
 Return
 
@@ -583,8 +583,13 @@ CapsLock & w::
 Return
 
 ; CapsLock+e - Open||Show "Explorer"
-CapsLock & e:: 
-    OpenOrShowExplorer()
+; CapsLock & e:: 
+;     OpenOrShowExplorer()
+; Return
+
+; CapsLock+e - Open||Show "Files v2 file explorer"
+CapsLock & e::
+  OpenOrShowAppBasedOnWindowTitle("- Files", "C:\Users\98joh\OneDrive\Desktop\Shortcuts\Files - 바로 가기.lnk")  
 Return
 
 ;CapsLock + ` -  Activate NEXT Window of same type (title checking) of the current APP
