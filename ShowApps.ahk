@@ -3,6 +3,10 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+scripts_path := "C:\code\AutoHotkeyScripts"
+#include C:\code\AutoHotkeyScripts\monitor-info.ahk
+
+
 
 ; This AutoHotkey script is to Open, Restore or Minimize the desires Apps using the configured shortcuts key (hotkeys) you want.
 ; There are three functions you can use for this: 
@@ -28,6 +32,45 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 #WinActivateForce ; Prevent task bar buttons from flashing when different windows are activated quickly one after the other.
+
+; Focus app on monitor `TargetMonitor`, and integer.
+; Accepts an AppModelUserID to find the windows to loop over
+; Accepts a boolean MinimizeWindow to determine if opening the currently focused window should minimize it.
+FocusAppOnMonitor(AppModelUserID, TargetMonitor, MinimizeWindow) {
+    SetTitleMatchMode, 2
+    WinGet, Windows, List, %AppModelUserID%
+
+    Loop, %Windows%
+    {
+        this_windowHwnd := Windows%A_Index%
+        currentMonitor := GetMonitor(this_windowHwnd)
+        ; MsgBox "Loop Number" %A_Index%. MonitorHWND: %currentMonitorHwnd%. Target: %Monitor2%
+        If (currentMonitorHwnd == TargetMonitor)
+        {
+            ; MsgBox Found a window. %A_Index%
+            If (WinActive("ahk_id" this_windowHwnd) and MinimizeWindow)
+            {
+				;MsgBox Already active. Minimizing
+				WinMinimize, ahk_id %this_windowHwnd%
+                Return
+            }
+            else
+            {
+                ;MsgBox "Inactive window. Activating"
+                WinActivateBottom ahk_id %this_windowHwnd%
+                Return
+            }        
+        }
+    }
+    ; MsgBox Found nothing
+    Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
+    If ErrorLevel
+    {
+        Msgbox, File %AppModelUserID% Not Found
+    }
+    Return
+}
+
 
 ; AppAddress: The address to the .exe (Eg: "C:\Windows\System32\SnippingTool.exe")
 
@@ -75,6 +118,43 @@ OpenOrShowAppBasedOnExeName(AppAddress)
 
 ; WindowTitleWord: Usually the word at the end of the app window title (Eg: in: "New Document - Word" will be "Word")
 ; AppAddress: The address to the .exe (Eg: "C:\Windows\System32\SnippingTool.exe")
+
+OpenOrShowAppBasedOnWindowTitleNoMinimize(WindowTitleWord, AppAddress)
+{
+
+    SetTitleMatchMode, 2
+	
+
+    IfWinExist, %WindowTitleWord%
+    {    
+
+		IfWinActive
+		{
+			; WinMinimize
+			Return false
+		}
+		else
+		{
+			WinActivate
+			Return true
+		}
+	
+	}
+    else
+    {
+        Run, %AppAddress%, UseErrorLevel
+        If ErrorLevel
+        {
+            ; Msgbox, File %AppAddress% Not Found
+            Return false
+        }
+		else
+		{
+			WinActivate
+			Return true
+		}
+    }
+}
 
 OpenOrShowAppBasedOnWindowTitle(WindowTitleWord, AppAddress)
 {
@@ -153,6 +233,41 @@ OpenOrShowAppBasedOnAppModelUserID(AppTitle, AppModelUserID, TitleMatchMode=2)
 	return false
 }
 
+OpenOrShowAppBasedOnAppModelUserIDNoMinimize(AppTitle, AppModelUserID, TitleMatchMode=2)
+{	
+	SetTitleMatchMode, %TitleMatchMode%
+	;MsgBox %TitleMatchMode%
+
+    IfWinExist, %AppTitle%
+    {    
+
+		IfWinActive
+		{
+			; MsgBox Found %AppTitle% as active window
+			; WinMinimize
+			; Return "minimized"
+		}
+		else
+		{
+			; MsgBox Found %AppTitle% as inactive window
+			WinActivateBottom %AppTitle%
+			; Return "maximized"
+		}
+		
+	}
+    else
+    {
+        ; MsgBox %AppTitle% Not found
+        Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
+        If ErrorLevel
+        {
+            Msgbox, File %AppModelUserID% Not Found
+            ; Return "opened"
+        }
+    }
+	return false
+}
+
 OpenOrShowAppBasedOnAppModelUserIDAndExe(AppExeName, AppModelUserID)
 {		
 	IfWinExist ahk_exe %AppExeName%
@@ -182,6 +297,34 @@ OpenOrShowAppBasedOnAppModelUserIDAndExe(AppExeName, AppModelUserID)
 	}
 }
 
+OpenOrShowAppBasedOnAppModelUserIDAndExeNoMinimize(AppExeName, AppModelUserID)
+{		
+	IfWinExist ahk_exe %AppExeName%
+	{
+	
+		IfWinActive
+		{
+			; WinMinimize
+			Return false
+		}
+		else
+		{
+			WinActivate
+			Return true
+		}
+				
+	}
+	else
+	{	
+		; MsgBox %AppTitle% Not found
+		Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
+		If ErrorLevel
+		{
+			; Msgbox, File %AppModelUserID% Not Found
+			Return true
+		}
+	}
+}
 
 
 ExtractAppTitle(FullTitle)

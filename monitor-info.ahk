@@ -1,5 +1,28 @@
 ;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+; Get monitor idx of window given by buffer, or active window if buffer not given
+GetMonitor(hwnd := 0, buffer := 600) {
+    MsgBox, got hwnd: %hwnd%
+    if (hwnd) {
+        WinGetPos, winX, winY, winW, winH, ahk_id %hwnd%
+    }
+    else {
+        WinGetActiveStats, winTitle, winW, winH, winX, winY
+    }
+    SysGet, numDisplays, MonitorCount
+    SysGet, idxPrimary, MonitorPrimary
+    Loop %numDisplays%
+    {
+        ; MsgBox, %A_index%
+        SysGet, mon, MonitorWorkArea, %A_index%
+        ; TrayTip, %n%, Left: %monLeft% Right: %monRight%. Window left: %winX%
+
+        if (winX + buffer >= monLeft and winX + buffer <= monRight)
+            return %A_index%
+    }
+    ; Otherwise return primary monitor
+    return idxPrimary
+}
 
 ;Credits to "just me" for the following code:
 
