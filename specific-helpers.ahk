@@ -1,6 +1,44 @@
-;================================================================================================
+﻿;================================================================================================
 ; Hotkey Helper functions NOT CURRENTLY USED
 ;================================================================================================
+
+; ;CapsLock + c - Run python program to add to anki deck
+; CapsLock & c::
+;     CoordMode, Mouse, Screen    
+;     MouseGetPos, xpos, ypos
+;     ; MsgBox, The cursor is at X%xpos% Y%ypos%.
+;     SetWorkingDir, C:/code/python-proj/add-to-anki/
+;     Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe main.pyw %xpos% %ypos%
+;     sleep, 1000
+;     if WinExist("Input a Korean English pair")
+;         WinActivate
+
+NaverDictQueryFromInput()
+{
+    MouseGetPos, xpos, ypos
+    width := 200
+    height := 125
+    InputBox, user_in , 단어, 단어를 입력하세요, , %width%, %height%, %xpos%, %ypos%
+    if (user_in) {
+        FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
+        Sleep 30
+        Run, firefox.exe -new-tab "https://ko.dict.naver.com/#/search?range=all&query=%user_in%"
+    }
+}
+
+NaverQueryFromInput()
+{
+    MouseGetPos, xpos, ypos
+    width := 200
+    height := 125
+    InputBox, user_in , 단어, 단어를 입력하세요, , %width%, %height%, %xpos%, %ypos%
+
+    if (user_in) {
+        FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
+        Sleep 10
+        Run, firefox.exe -new-tab "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%user_in%"
+    }
+}
 
 OpenAppsFolder()
 {

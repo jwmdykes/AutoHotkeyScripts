@@ -122,6 +122,47 @@ OpenOrShowAppBasedOnExeName(AppAddress)
 	}
 }
 
+OpenOrShowAppBasedOnExeNameNoMinimize(AppAddress)
+{
+
+
+	AppExeName := SubStr(AppAddress, InStr(AppAddress, "\", false, -1) + 1)
+		
+
+	IfWinExist ahk_exe %AppExeName%
+	{
+	
+		IfWinActive
+		{
+			; WinMinimize
+			Return false
+		}
+		else
+		{
+			WinActivate
+			Return true
+		}
+				
+	}
+	else
+	{	
+	
+		Run, %AppAddress%, UseErrorLevel
+        If ErrorLevel
+        {
+            ; Msgbox, File %AppAddress% Not Found
+            Return false
+        }
+		else
+		{
+			WinWait, ahk_exe %AppExeName%
+			WinActivate ahk_exe %AppExeName%			
+			Return true
+		}			
+		
+	}
+}
+
 
 ; WindowTitleWord: Usually the word at the end of the app window title (Eg: in: "New Document - Word" will be "Word")
 ; AppAddress: The address to the .exe (Eg: "C:\Windows\System32\SnippingTool.exe")

@@ -22,9 +22,30 @@ CapsLock & `::
     ; OpenAppsFolder()
 Return
 
-; CapsLock & 1::
-;     GetMonitor(,,debug := true)
-; Return
+; Trial hotkeys
+; show/open godot game engine
+CapsLock & 1::
+    OpenOrShowAppBasedOnExeNameNoMinimize("C:\code\godot\Godot_v3.4.2-stable_win64.exe")
+Return
+;show obsidian note taking app
+CapsLock & 2::
+    OpenOrShowAppBasedOnAppModelUserIDNoMinimize(" - Obsidian", "md.obsidian")
+Return
+;query naver dict
+CapsLock & 3::
+    NaverDictQueryFromInput()
+Return
+;search naver
+CapsLock & 4::
+    NaverQueryFromInput()
+Return
+
+;================================================================================================
+; Hot keys with Alt modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
+;================================================================================================
+; Toggle current window to be always on top
+CapsLock & 6::WinSet, AlwaysOnTop, Toggle, A
+return
 
 ;================================================================================================
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
@@ -39,20 +60,14 @@ CapsLock & c::
     FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 1, MinimizeWindow := False)
 Return
 
-; ;CapsLock + c - Run python program to add to anki deck
-; CapsLock & c::
-;     CoordMode, Mouse, Screen    
-;     MouseGetPos, xpos, ypos
-;     ; MsgBox, The cursor is at X%xpos% Y%ypos%.
-;     SetWorkingDir, C:/code/add-to-anki/
-;     Run C:/Users/98joh/AppData/Local/Programs/Python/Python310/pythonw.exe main.pyw %xpos% %ypos%
-;     sleep, 1000
-;     if WinExist("Input a Korean English pair")
-;         WinActivate
+; ;open anki add card
+; CapsLock & r::
+;     ; OpenOrShowAppBasedOnAppModelUserID("Anki", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
+;     OpenOrShowAppBasedOnAppModelUserID("Add", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
+; Return
 
-;open ankiweb app
 CapsLock & r::
-    OpenOrShowAppBasedOnAppModelUserID("Anki", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
+    OpenOrShowAppBasedOnAppModelUserID("GitHub Desktop", "com.squirrel.GitHubDesktop.GitHubDesktop")
 Return
 
 ;open terminal
@@ -72,11 +87,21 @@ Return
 ;Open korean dictionary
 CapsLock & f::
     OpenOrShowAppBasedOnAppModelUserIDNoMinimize("국립국어원 표준국어대사전", "Chrome._crx_lmfljdbcmdlfkpoeldhhajnghm")
+    Sleep 30
+    Click, 298 113
 Return
-; Open korean dictionary
+
+; ; Open korean dictionary
+; CapsLock & d::
+;     OpenOrShowAppBasedOnAppModelUserIDNoMinimize("한국어기초사전", "Chrome._crx_cffcckajjofbfnflmfaabejcoa")
+;     Sleep 30
+;     Click, 212 148
+; Return
+
 CapsLock & d::
-    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("한국어기초사전", "Chrome._crx_cffcckajjofbfnflmfaabejcoa")
+    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("국어 단어장", "Chrome._crx_bbjogkhlhlmdcinjgddfggikfc")
 Return
+
 
 ; CapsLock+s - Open||Show "Youtube Music" or 
 CapsLock & s::
@@ -91,11 +116,8 @@ Return
 ; CapsLock+a - Open||Show "Discord chat"
 CapsLock & a:: 
     OpenOrShowAppBasedOnAppModelUserID("Discord", "com.squirrel.Discord.Discord")
-Return
-
-; CapsLock +6 - Open||Show "Discord call"
-CapsLock & 6:: 
-    OpenDiscordCall()
+    Sleep 30
+    Click, 422 997
 Return
 
 ; CapsLock+w - Open||Show "VScode"
@@ -112,23 +134,6 @@ Return
 CapsLock & Tab::
     ActivateNextWindowOfCurrentApp()
 Return
-
-CapsLock & j::
-    Left()
-return
-
-CapsLock & l::
-    Right()
-return
-
-
-CapsLock & i::
-    Up()
-return
-
-CapsLock & k::
-    Down()
-return
 
 ;MEDIA CONTROLS
 CapsLock & Space:: Send {Media_Play_Pause}
