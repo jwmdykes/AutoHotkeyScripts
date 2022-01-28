@@ -13,6 +13,22 @@
 ;     if WinExist("Input a Korean English pair")
 ;         WinActivate
 
+GoogleFromCursor()
+{
+    send ^c
+    sleep 10
+    ClipWait
+    FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
+    clipboard := RegexReplace(RegexReplace(clipboard, "\r?\n"," "), "(^\s+|\s+$)")
+    ; MsgBox, "Control-C copied the following contents to the clipboard: %clipboard%"
+
+    If SubStr(ClipBoard,1,7)="http://"
+        Run, firefox.exe -new-tab %clipboard%
+    else
+        Run, firefox.exe -new-tab "http://www.google.com/search?hl=en&q=%clipboard%"
+    return
+}
+
 NaverDictQueryFromInput()
 {
     MouseGetPos, xpos, ypos

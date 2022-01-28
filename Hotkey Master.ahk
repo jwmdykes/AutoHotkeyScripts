@@ -10,11 +10,13 @@ scripts_path := "C:\code\AutoHotkeyScripts"
 #include specific-helpers.ahk
 #include arrow-keys.ahk
 
+;CapsLock:: Send {Esc}
 
 ; Reload script
 ^!r:: Reload
 ;Make capslock always off
-CapsLock::return
+; CapsLock::return
+Capslock::Esc
 
 ; Test hotkey
 CapsLock & `::
@@ -38,6 +40,9 @@ Return
 ;search naver
 CapsLock & 4::
     NaverQueryFromInput()
+Return
+CapsLock & 5::
+    GoogleFromCursor()
 Return
 
 ;================================================================================================
