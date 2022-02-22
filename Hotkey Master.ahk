@@ -59,11 +59,11 @@ return
 
 ; Focus on firefox on first monitor
 CapsLock & v::
-    FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
+    FocusAppOnMonitor(Name := "- Whale", AppModelUserID := "Naver_Whale", TargetMonitor := 2, MinimizeWindow := False)
 Return
 
 CapsLock & c::
-    FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 1, MinimizeWindow := False)
+    FocusAppOnMonitor(Name := "- Whale", AppModelUserID := "Naver_Whale", TargetMonitor := 1, MinimizeWindow := False)
 Return
 
 CapsLock & r::
