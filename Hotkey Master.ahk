@@ -27,8 +27,9 @@ Return
 ; Trial hotkeys
 ; show/open godot game engine
 CapsLock & 1::
-    OpenOrShowAppBasedOnExeNameNoMinimize("C:\code\godot\Godot_v3.4.2-stable_win64.exe")
+    NaverEngDictQueryFromInput()
 Return
+
 ;show obsidian note taking app
 CapsLock & 2::
     OpenOrShowAppBasedOnAppModelUserIDNoMinimize(" - Obsidian", "md.obsidian")
@@ -65,12 +66,6 @@ CapsLock & c::
     FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 1, MinimizeWindow := False)
 Return
 
-; ;open anki add card
-; CapsLock & r::
-;     ; OpenOrShowAppBasedOnAppModelUserID("Anki", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
-;     OpenOrShowAppBasedOnAppModelUserID("Add", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
-; Return
-
 CapsLock & r::
     OpenOrShowAppBasedOnAppModelUserID("GitHub Desktop", "com.squirrel.GitHubDesktop.GitHubDesktop")
 Return
@@ -85,9 +80,13 @@ CapsLock & h::
     OpenOrShowAppBasedOnAppModelUserID("설정", "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel")
 Return
 
+CapsLock & b::  
+    OpenOrShowAppBasedOnAppModelUserID("Bitwarden", "com.bitwarden.desktop")
+Return
+
 ; CapsLock + g  - Open||Show "Gmail as Chrome App"
 CapsLock & g:: 
-    OpenOrShowAppBasedOnAppModelUserID("Gmail", "Chrome._crx_kmhopmchchjodmpfaaphdclmlj")
+    OpenOrShowAppBasedOnAppModelUserID("Gmail", "Chrome._crx_fmgjjmmmlfcabfkddbjimcfncm")
 Return
 ;Open korean dictionary
 CapsLock & f::
@@ -121,8 +120,8 @@ Return
 ; CapsLock+a - Open||Show "Discord chat"
 CapsLock & a:: 
     OpenOrShowAppBasedOnAppModelUserID("Discord", "com.squirrel.Discord.Discord")
-    Sleep 30
-    Click, 422 997
+    ; Sleep 30
+    ; Click, 422 997
 Return
 
 ; CapsLock+w - Open||Show "VScode"
