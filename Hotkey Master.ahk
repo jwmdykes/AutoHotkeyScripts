@@ -42,9 +42,6 @@ Return
 CapsLock & 4::
     NaverQueryFromInput()
 Return
-CapsLock & 5::
-    GoogleFromCursor()
-Return
 
 ;================================================================================================
 ; Hot keys with Alt modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
@@ -66,10 +63,6 @@ CapsLock & c::
     FocusAppOnMonitor(Name := "- Whale", AppModelUserID := "Naver_Whale", TargetMonitor := 1, MinimizeWindow := False)
 Return
 
-CapsLock & r::
-    OpenOrShowAppBasedOnAppModelUserID("GitHub Desktop", "com.squirrel.GitHubDesktop.GitHubDesktop")
-Return
-
 ;open terminal
 CapsLock & t::
     OpenOrShowAppBasedOnAppModelUserIDAndExeNoMinimize("WindowsTerminal.exe", "Microsoft.WindowsTerminal_8wekyb3d8bbwe!App")
@@ -86,7 +79,7 @@ Return
 
 ; CapsLock + g  - Open||Show "Gmail as Chrome App"
 CapsLock & g:: 
-    OpenOrShowAppBasedOnAppModelUserID("Gmail", "Chrome._crx_fmgjjmmmlfcabfkddbjimcfncm")
+    OpenOrShowAppBasedOnAppModelUserID("Mozilla Thunderbird", "D78BF5DD33499EC2")
 Return
 ;Open korean dictionary
 CapsLock & f::
