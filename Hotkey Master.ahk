@@ -73,6 +73,11 @@ CapsLock & h::
     OpenOrShowAppBasedOnAppModelUserID("설정", "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel")
 Return
 
+;open reaper
+CapsLock & r::  
+    OpenOrShowAppBasedOnAppModelUserID("- REAPER", "{6D809377-6AF0-444B-8957-A3773F02200E}\REAPER (x64)\reaper.exe")
+Return
+
 CapsLock & b::  
     OpenOrShowAppBasedOnAppModelUserID("Bitwarden", "com.bitwarden.desktop")
 Return
@@ -96,7 +101,7 @@ Return
 ; Return
 
 CapsLock & d::
-    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("국어 단어장", "Chrome._crx_bbjogkhlhlmdcinjgddfggikfc")
+    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("파파고", "Naver_Whale._crx_kdhdkgiemlhgmmd.UserData.Profile1")
 Return
 
 
