@@ -281,6 +281,45 @@ OpenOrShowAppBasedOnAppModelUserID(AppTitle, AppModelUserID, TitleMatchMode=2)
 	return false
 }
 
+Anki_Add(AppTitle, AppModelUserID, TitleMatchMode=2)
+{	
+	SetTitleMatchMode, %TitleMatchMode%
+	;MsgBox %TitleMatchMode%
+
+    IfWinExist, %AppTitle%
+    {    
+
+		IfWinActive
+		{
+			; MsgBox Found %AppTitle% as active window
+			send a
+			; WinMinimize
+			Return "minimized"
+		}
+		else
+		{
+			; MsgBox Found %AppTitle% as inactive window
+			WinActivateBottom %AppTitle%
+			sleep 5
+			send a
+			; WinMinimize
+			Return "maximized"
+		}
+	}
+    else
+    {
+        ; MsgBox %AppTitle% Not found
+        Run, shell:AppsFolder\%AppModelUserID%, UseErrorLevel
+        If ErrorLevel
+        {
+            ; Msgbox, File %AppModelUserID% Not Found
+            Return "opened"
+        
+		}
+    }
+	return false
+}
+
 OpenOrShowAppBasedOnAppModelUserIDNoMinimize(AppTitle, AppModelUserID, TitleMatchMode=2)
 {	
 	SetTitleMatchMode, %TitleMatchMode%

@@ -36,9 +36,9 @@ NaverDictQueryFromInput()
     height := 125
     InputBox, user_in , 단어, 단어를 입력하세요, , %width%, %height%, %xpos%, %ypos%
     if (user_in) {
-        FocusAppOnMonitor(Name := "Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
+        FocusAppOnMonitor(Name := "- Whale", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
         Sleep 30
-        Run, firefox.exe -new-tab "https://ko.dict.naver.com/#/search?range=all&query=%user_in%"
+        Run, whale.exe -new-tab "https://ko.dict.naver.com/#/search?range=all&query=%user_in%"
     }
 }
 
