@@ -105,7 +105,8 @@ Return
 
 ; CapsLock+r - Open||Show "Anki" 
 CapsLock & z::
-    Anki_Add("- Anki", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
+    OpenOrShowAppBasedOnAppModelUserID("Add", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe", 1)
+    ; Anki_Add("- Anki", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
 Return
 
 ; CapsLock+a - Open||Show "Discord chat"
