@@ -320,6 +320,33 @@ Anki_Add(AppTitle, AppModelUserID, TitleMatchMode=2)
 	return false
 }
 
+ShowAppBasedOnAppTitle(AppTitle, TitleMatchMode=2)
+{
+	SetTitleMatchMode, %TitleMatchMode%
+	;MsgBox %TitleMatchMode%
+
+    IfWinExist, %AppTitle%
+    {    
+
+		IfWinActive
+		{
+			; MsgBox Found %AppTitle% as active window
+			; WinMinimize
+			; Return "minimized"
+			return true
+		}
+		else
+		{
+			; MsgBox Found %AppTitle% as inactive window
+			WinActivateBottom %AppTitle%
+			; Return "maximized"
+			return true
+		}
+		
+	}
+	return false
+}
+
 OpenOrShowAppBasedOnAppModelUserIDNoMinimize(AppTitle, AppModelUserID, TitleMatchMode=2)
 {	
 	SetTitleMatchMode, %TitleMatchMode%

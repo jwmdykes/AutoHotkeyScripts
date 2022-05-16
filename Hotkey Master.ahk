@@ -93,15 +93,8 @@ CapsLock & f::
     Click, 298 113
 Return
 
-; ; Open korean dictionary
-; CapsLock & d::
-;     OpenOrShowAppBasedOnAppModelUserIDNoMinimize("한국어기초사전", "Chrome._crx_cffcckajjofbfnflmfaabejcoa")
-;     Sleep 30
-;     Click, 212 148
-; Return
-
 CapsLock & d::
-    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("파파고", "Naver_Whale._crx_kdhdkgiemlhgmmd.UserData.Profile1")
+    ShowAppBasedOnAppTitle(": 네이버 국어사전")
 Return
 
 
