@@ -5,62 +5,40 @@ SendMode Input              ; Recommended for new scripts due to its superior sp
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 n := "Hotkey Master" ; name of script
 
-scripts_path := "C:\code\AutoHotkeyScripts"
-#include ShowApps.ahk
-#include specific-helpers.ahk
-#include arrow-keys.ahk
+SetCapsLockState, AlwaysOff
+*CapsLock::Return
 
-;CapsLock:: Send {Esc}
+#include specific-helpers.ahk
+#include ShowApps.ahk
+#include arrow-keys.ahk
+; press alt and left click to move window
+; press and and right click to resize window
+#include AltMoveWindowResizeWindow.ahk
 
 ; Reload script
 ^!r:: Reload
-;Make capslock always off
-; CapsLock::return
-Capslock::Esc
+Return
 
 ; Test hotkey
 CapsLock & `::
-    MsgBox, No test hotkey available
-    ; OpenAppsFolder()
+    MsgBox, TEST HOTKEY SUCCESS!
 Return
-
-; Trial hotkeys
-; show/open godot game engine
-CapsLock & 1::
-    NaverEngDictQueryFromInput()
-Return
-
-;show obsidian note taking app
-CapsLock & 2::
-    OpenOrShowAppBasedOnAppModelUserIDNoMinimize(" - Obsidian", "md.obsidian")
-Return
-;query naver dict
-CapsLock & 3::
-    NaverDictQueryFromInput()
-Return
-;search naver
-CapsLock & 4::
-    NaverQueryFromInput()
-Return
-
-;================================================================================================
-; Hot keys with Alt modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
-;================================================================================================
-; Toggle current window to be always on top
-CapsLock & 6::WinSet, AlwaysOnTop, Toggle, A
-return
 
 ;================================================================================================
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
 ;================================================================================================
 
+CapsLock & q::
+    WinClose A
+Return
+
 ; Focus on firefox on first monitor
 CapsLock & v::
-    FocusAppOnMonitor(Name := "- Whale", AppModelUserID := "Naver_Whale", TargetMonitor := 2, MinimizeWindow := False)
+    FocusAppOnMonitor(Name := "— Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 1, MinimizeWindow := False)
 Return
 
 CapsLock & c::
-    FocusAppOnMonitor(Name := "- Whale", AppModelUserID := "Naver_Whale", TargetMonitor := 1, MinimizeWindow := False)
+    FocusAppOnMonitor(Name := "— Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 2, MinimizeWindow := False)
 Return
 
 ;open terminal
@@ -73,49 +51,6 @@ CapsLock & h::
     OpenOrShowAppBasedOnAppModelUserID("설정", "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel")
 Return
 
-;open reaper
-CapsLock & r::  
-    OpenOrShowAppBasedOnAppModelUserID("- REAPER", "{6D809377-6AF0-444B-8957-A3773F02200E}\REAPER (x64)\reaper.exe")
-Return
-
-CapsLock & b::  
-    OpenOrShowAppBasedOnAppModelUserID("Bitwarden", "com.bitwarden.desktop")
-Return
-
-; CapsLock + g  - Open||Show "Gmail as Chrome App"
-CapsLock & g:: 
-    OpenOrShowAppBasedOnAppModelUserID("Mozilla Thunderbird", "D78BF5DD33499EC2")
-Return
-;Open korean dictionary
-CapsLock & f::
-    OpenOrShowAppBasedOnAppModelUserIDNoMinimize("국립국어원 표준국어대사전", "Chrome._crx_lmfljdbcmdlfkpoeldhhajnghm")
-    Sleep 30
-    Click, 298 113
-Return
-
-CapsLock & d::
-    ShowAppBasedOnAppTitle(": 네이버 국어사전")
-Return
-
-
-; CapsLock+s - Open||Show "Youtube Music" or 
-CapsLock & s::
-    OpenOrShowAppBasedOnAppModelUserID("YouTube Music", "Chrome._crx_cinhimbnkkghhklpknlkffjgod")
-Return
-
-; CapsLock+r - Open||Show "Anki" 
-CapsLock & z::
-    OpenOrShowAppBasedOnAppModelUserID("Add", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe", 1)
-    ; Anki_Add("- Anki", "{6D809377-6AF0-444B-8957-A3773F02200E}\Anki\anki.exe")
-Return
-
-; CapsLock+a - Open||Show "Discord chat"
-CapsLock & a:: 
-    OpenOrShowAppBasedOnAppModelUserID("Discord", "com.squirrel.Discord.Discord")
-    ; Sleep 30
-    ; Click, 422 997
-Return
-
 ; CapsLock+w - Open||Show "VScode"
 CapsLock & w:: 
     OpenOrShowAppBasedOnAppModelUserIDNoMinimize("Visual Studio Code", "Microsoft.VisualStudioCode")
@@ -123,7 +58,7 @@ Return
 
 ; CapsLock+e - Open||Show "Files v2 file explorer"
 CapsLock & e::
-  OpenOrShowAppBasedOnWindowTitle("- Files", "C:\Users\98joh\OneDrive\Desktop\Shortcuts\Files - 바로 가기.lnk")  
+    OpenOrShowAppBasedOnAppModelUserID("- Files", "Files_wvne1zexy08sa!App")  
 Return
 
 ;CapsLock + ` -  Activate NEXT Window of same type (title checking) of the current APP
@@ -133,7 +68,6 @@ Return
 
 ;MEDIA CONTROLS
 CapsLock & Space:: Send {Media_Play_Pause}
-CapsLock & MButton:: Send {Media_Play_Pause}
 CapsLock & Left:: Send {Media_Prev}
 CapsLock & Right:: Send {Media_Next}
 CapsLock & Up:: Send {Volume_Up}
@@ -182,41 +116,3 @@ CapsLock & WheelDown::
     }
 }
 CapsLock & m:: Send {Volume_Mute}
-;Delete
-CapsLock & BackSpace::Send {Delete}
-; Send escape
-CapsLock & q:: Send {Esc}
-
-CapsLock & LButton:: 
-{
-    If GetKeyState("Ctrl")
-    {
-        Send {Left}
-    }
-    Else
-    {
-        Send ^/
-    }
-    Return
-}
-CapsLock & XButton1:: ^]
-CapsLock & XButton2:: ^[
-CapsLock & RButton:: 
-{
-    If GetKeyState("Ctrl")
-    {
-        Send {Right}
-    }
-    Else
-    {
-        Send {BackSpace}
-    }
-    Return
-}
-
-CapsLock & [:: Send {PgUp}
-CapsLock & ]:: Send {PgDn}
-
-CapsLock & -:: Send {Home}
-CapsLock & =:: Send {End}
-
