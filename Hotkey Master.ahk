@@ -32,6 +32,10 @@ CapsLock & q::
     WinClose A
 Return
 
+CapsLock & m::
+    WinMinimize A
+Return
+
 ; Focus on firefox on first monitor
 CapsLock & v::
     FocusAppOnMonitor(Name := "— Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 1, MinimizeWindow := False)
@@ -115,4 +119,3 @@ CapsLock & WheelDown::
         Return
     }
 }
-CapsLock & m:: Send {Volume_Mute}
