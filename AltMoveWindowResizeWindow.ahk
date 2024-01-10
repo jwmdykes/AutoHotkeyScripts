@@ -1,7 +1,7 @@
 CapsLock & LButton::
   CoordMode, Mouse
   MouseGetPos, origMouseX, origMouseY, winId
-  SetTimer, lMouseWatch, 10
+  SetTimer, lMouseWatch, 10   
   return
 
 lMouseWatch:

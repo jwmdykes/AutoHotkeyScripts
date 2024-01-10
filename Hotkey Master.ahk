@@ -36,6 +36,11 @@ CapsLock & m::
     WinMinimize A
 Return
 
+CapsLock & Space::
+    Send, !{Space}
+Return
+
+
 ; Focus on firefox on first monitor
 CapsLock & v::
     FocusAppOnMonitor(Name := "— Mozilla Firefox", AppModelUserID := "308046B0AF4A39CB", TargetMonitor := 1, MinimizeWindow := False)
@@ -71,7 +76,7 @@ CapsLock & Tab::
 Return
 
 ;MEDIA CONTROLS
-CapsLock & Space:: Send {Media_Play_Pause}
+CapsLock & F1:: Send {Media_Play_Pause}
 CapsLock & Left:: Send {Media_Prev}
 CapsLock & Right:: Send {Media_Next}
 CapsLock & Up:: Send {Volume_Up}
