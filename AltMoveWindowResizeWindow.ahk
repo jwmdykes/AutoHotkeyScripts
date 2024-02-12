@@ -1,8 +1,8 @@
-CapsLock & LButton::
+Shift & LButton::
   CoordMode, Mouse
   MouseGetPos, origMouseX, origMouseY, winId
-  SetTimer, lMouseWatch, 10   
-  return
+  SetTimer, lMouseWatch, 10
+return
 
 lMouseWatch:
   if (!GetKeyState("LButton", "P")) {
@@ -21,7 +21,7 @@ lMouseWatch:
   return
 
 
-CapsLock & RButton::
+Shift & RButton::
   CoordMode, Mouse
   MouseGetPos, origMouseX, origMouseY, winId
 
